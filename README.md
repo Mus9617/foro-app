@@ -1,8 +1,10 @@
 ﻿# Foro Redención · Landing & Docs
 
-![Foro Redención logo](assets/images/logo.png)
+<p align="center">
+  <img src="assets/images/logo.png" alt="Foro Redención" width="120" />
+</p>
 
-Sitio web estático que presenta la app móvil **Foro**: landing principal, documentación profesional bilingüe (es/fr) y estilo futurista con reveal/parallax para acompañar el producto publicado en Google Play.
+Sitio web estático que presenta la app móvil **Foro Redención**: landing principal, documentación profesional bilingüe (es/fr) y estilo futurista con reveal/parallax para acompañar el producto publicado en Google Play.
 
 ![Captura de la landing](assets/images/foro.png)
 
@@ -27,6 +29,8 @@ fr/index.html           # landing en francés
 ```
 
 ## Ejecutar en local
+
+- **Producción:** https://foro-nu.vercel.app/
 
 1. Clona el repositorio y entra al proyecto.
 2. Sirve los archivos con cualquier servidor estático (por ejemplo `npx serve .` o `python -m http.server`).
