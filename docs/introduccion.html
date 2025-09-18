@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Introducción · Foro</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" type="image/png" href="../assets/images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="brand">
+          <img src="../assets/images/logo.png" alt="Foro Redención" class="brand__logo" />
+          <strong>Foro Redenci&oacute;n</strong>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-links">
+            <a class="nav-link" data-nav-link href="../index.html">Inicio</a>
+            <a class="nav-link" data-nav-link href="introduccion.html">Documentaci&oacute;n</a>
+            <a class="nav-link" data-nav-link href="guia-rapida.html">Gu&iacute;a R&aacute;pida</a>
+            <a class="nav-link" data-nav-link href="backend.html">API &amp; Backend</a>
+          </div>
+          <div class="nav-lang" role="group" aria-label="Seleccionar idioma">
+            <a class="lang-link active" href="introduccion.html" aria-current="page" lang="es">
+              <img class="flag-icon" src="../assets/images/flag-es.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">ES</span>
+            </a>
+            <a class="lang-link" href="../fr/docs/introduction.html" lang="fr">
+              <img class="flag-icon" src="../assets/images/flag-fr.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">FR</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="docs-wrapper">
+      <aside class="docs-nav">
+        <h2>Contenido</h2>
+        <a href="#vision" class="current">Visión general</a>
+        <a href="#modulos">Módulos clave</a>
+        <a href="#principios">Principios de diseño</a>
+        <a href="#casos">Casos de uso</a>
+        <a href="#ecosistema">Ecosistema técnico</a>
+      </aside>
+
+      <section class="docs-content">
+        <article>
+          <h1 id="vision">Introducción a Foro</h1>
+          <p>
+            Foro Redenci&oacute;n es la plataforma móvil oficial de la comunidad Foro. Su objetivo es ofrecer un espacio seguro y vibrante donde las personas puedan compartir novedades, debatir temas relevantes, recibir acompañamiento personalizado y actuar en tiempo real gracias a notificaciones inteligentes.
+          </p>
+          <div class="alert">
+            <strong>Disponible actualmente en Google Play.</strong> Usa la pestaña WebView para acceso inmediato al portal de registro mientras expandimos la experiencia a web y desktop.
+          </div>
+
+          <h2 id="modulos">Módulos clave</h2>
+          <p>Cada pestaña de la app cumple una función definida y se enlaza con los servicios de backend para mantener la información sincronizada.</p>
+          <ul>
+            <li><strong>Foro:</strong> Hilos, posts y respuestas en tiempo real sobre Firestore.</li>
+            <li><strong>Entradas:</strong> Contenido editorial importado desde <code>/api/news</code> para anuncios y recursos.</li>
+            <li><strong>MDs:</strong> Mensajería directa con contadores de no leídos y notificaciones push diferenciales.</li>
+            <li><strong>Perfil:</strong> Configura tokens FCM, preferencias y accesos rápidos al propio historial.</li>
+            <li><strong>Web:</strong> WebView que integra servicios externos como formularios o dashboards.</li>
+          </ul>
+
+          <h2 id="principios">Principios de diseño</h2>
+          <p>
+            La aplicación se construye siguiendo tres pilares principales:
+          </p>
+          <ol>
+            <li><strong>Inmediatez:</strong> Toda acción de los usuarios se refleja instantáneamente gracias a Firestore y a los listeners activos.</li>
+            <li><strong>Relevancia:</strong> Las notificaciones se enriquecen con contexto (postId, threadId) para navegar directamente a la vista adecuada.</li>
+            <li><strong>Identidad futurista:</strong> Interfaz oscura, acentos neón y tipografías condensadas para transmitir energía digital.</li>
+          </ol>
+
+          <h2 id="ecosistema">Ecosistema técnico</h2>
+          <p>
+            El proyecto se divide en dos repositorios principales:
+          </p>
+          <ul>
+            <li><code>app/foro</code>: App Expo/React Native con navegación por pestañas y autenticación Firebase.</li>
+            <li><code>api/api</code>: Funciones Node.js para noticias, envío de push personalizados y moderación.</li>
+          #</ul>
+
+          <h2 id="casos">Casos de uso recomendados</h2>
+          <p>
+            Estos son los escenarios que gu&iacute;an la evoluci&oacute;n del producto y ayudan a alinear marketing, soporte y desarrollo.
+          </p>
+          <ul>
+            <li><strong>Seguimiento pastoral:</strong> líderes reciben alertas cuando un miembro solicita ayuda mediante MDs.</li>
+            <li><strong>Lanzamientos tem&aacute;ticos:</strong> creación de series de entradas y posts coordinados con notificaciones segmentadas.</li>
+            <li><strong>Capacitación expr&eacute;s:</strong> recopilación de recursos multimedia dentro de Entradas para campañas educativas.</li>
+          </ul>
+          <p>
+            Ambas piezas se autentican mediante Firebase y comparten IDs de usuario, lo que permite conectar eventos del frontend con automatizaciones serverless como <code>send-fcm-push</code> y <code>check-toxicity</code>.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Foro Redenci&oacute;n · Documentaci&oacute;n introductoria.</p>
+    </footer>
+
+    <script src="../assets/js/main.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

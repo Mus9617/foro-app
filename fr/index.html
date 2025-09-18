@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foro &middot; Documentation officielle</title>
+    <meta name="description" content="Documentation officielle de Foro Redenci&oacute;n, l'application communautaire disponible sur Google Play avec forum, actualit&eacute;s, messages directs et notifications intelligentes." />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" type="image/png" href="../assets/images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="brand">
+          <img src="../assets/images/logo.png" alt="Foro Redención" class="brand__logo" />
+          <strong>Foro</strong>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-links">
+            <a class="nav-link" data-nav-link href="index.html">Accueil</a>
+            <a class="nav-link" data-nav-link href="docs/introduction.html">Documentation</a>
+            <a class="nav-link" data-nav-link href="docs/guide-rapide.html">Guide rapide</a>
+            <a class="nav-link" data-nav-link href="docs/backend.html">API &amp; Backend</a>
+          </div>
+          <div class="nav-lang" role="group" aria-label="Choisir la langue">
+            <a class="lang-link" href="../index.html" lang="es">
+              <img class="flag-icon" src="../assets/images/flag-es.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">ES</span>
+            </a>
+            <a class="lang-link active" href="index.html" aria-current="page" lang="fr">
+              <img class="flag-icon" src="../assets/images/flag-fr.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">FR</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero__content">
+          <div class="hero__copy">
+            <span class="badge">Disponible sur Google Play</span>
+            <h1>Une communaut&eacute; mobile futuriste aux alertes intelligentes</h1>
+            <p>
+              Foro r&eacute;unit discussions, actualit&eacute;s et messagerie priv&eacute;e dans une seule application. Construite avec Expo et Firebase, renforc&eacute;e par OneSignal, elle livre le bon contenu au bon moment.
+            </p>
+            <div class="cta-group">
+              <a class="cta cta--primary" href="https://play.google.com/store/apps/details?id=com.redencion.foro" target="_blank" rel="noopener">Voir sur Play Store</a>
+              <a class="cta cta--ghost" href="../docs/introduccion.html">Parcourir la documentation</a>
+            </div>
+          </div>
+          <div class="hero__panel" aria-hidden="true" data-parallax-layer="0.12">
+            <div class="hero__grid">
+              <div class="stat-card">
+                <h3>Modules actifs</h3>
+                <strong>5</strong>
+                <p>Forum, Articles, Messages, Profil et WebView</p>
+              </div>
+              <div class="stat-card">
+                <h3>Push routing</h3>
+                <strong>Dynamique</strong>
+                <p>Redirection imm&eacute;diate vers posts et conversations</p>
+              </div>
+              <div class="stat-card">
+                <h3>Stack technologique</h3>
+                <strong>Expo 53</strong>
+                <p>React Navigation &middot; Firebase Auth &middot; Firestore</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--showcase">
+        <div class="section__inner showcase">
+          <figure class="showcase__media" data-parallax-layer="0.18">
+            <img src="../assets/images/foro-playstore.png" alt="Visuel promotionnel de Foro Redenci&oacute;n disponible sur Google Play" loading="lazy" />
+          </figure>
+          <div class="showcase__content" data-parallax-layer="0.24">
+            <h2>Foro : votre communaut&eacute; s&eacute;curis&eacute;e</h2>
+            <p>
+              L'application officielle centralise d&eacute;bats, actualit&eacute;s et accompagnement personnel dans une ambiance n&eacute;on immersive.
+            </p>
+            <ul class="showcase__points">
+              <li>Interface sombre, coh&eacute;rente et compatible Markdown riche.</li>
+              <li>Notifications cibl&eacute;es vers fils, messages priv&eacute;s ou ressources externes.</li>
+              <li>Fonctions serverless pour news, mod&eacute;ration et alertes personnalis&eacute;es.</li>
+            </ul>
+            <div class="showcase__cta">
+              <a class="cta cta--primary" href="https://play.google.com/store/apps/details?id=com.redencion.foro" target="_blank" rel="noopener">T&eacute;l&eacute;charger</a>
+              <a class="cta cta--ghost" href="../docs/backend.html">Voir l'architecture</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__inner">
+          <h2 class="section__title">Exp&eacute;rience pens&eacute;e pour la communaut&eacute;</h2>
+          <p class="section__subtitle">
+            L'application combine discussion ouverte, contenus &eacute;ditoriaux et messagerie priv&eacute;e avec synchronisation temps r&eacute;el Firebase et orchestration OneSignal.
+          </p>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="tag">Forum</span>
+              <h3>Discussions mod&eacute;r&eacute;es et profondes</h3>
+              <p>Liste de fils, d&eacute;tails de posts et r&eacute;ponses Markdown. Chaque notification ouvre le fil pertinent.</p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Articles</span>
+              <h3>Actualit&eacute;s curatoriales</h3>
+              <p>Section &eacute;ditoriale aliment&eacute;e par <code>/api/news</code> pour annonces et ressources multim&eacute;dia.</p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Messages</span>
+              <h3>Messagerie directe en temps r&eacute;el</h3>
+              <p>Firestore g&egrave;re les fils priv&eacute;s avec compteurs synchronis&eacute;s sur l'onglet et l'ic&ocirc;ne.</p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Profil</span>
+              <h3>Identit&eacute; centralis&eacute;e</h3>
+              <p>Gestion des tokens FCM, pr&eacute;f&eacute;rences de notification et informations personnelles.</p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Web</span>
+              <h3>Int&eacute;gration de portail externe</h3>
+              <p>WebView d&eacute;di&eacute;e pour formulaires et ressources communautaires sans quitter l'application.</p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Notifications</span>
+              <h3>Alertes actionnables</h3>
+              <p>OneSignal synchronis&eacute; avec Firebase Auth pour cibler posts, fils et campagnes.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--insights">
+        <div class="section__inner">
+          <h2 class="section__title">Ce que propose Foro Redenci&oacute;n</h2>
+          <p class="section__subtitle">
+            Une synth&egrave;se claire des r&ocirc;les, moments cl&eacute;s et indicateurs pour pr&eacute;senter l'exp&eacute;rience &agrave; l'&eacute;quipe ou &agrave; la communaut&eacute; francophone.
+          </p>
+          <div class="insights-grid">
+            <article class="insight-card">
+              <h3>Utilisateurs et r&ocirc;les</h3>
+              <ul>
+                <li><strong>Membres :</strong> lisent les actualit&eacute;s, participent au forum et re&ccedil;oivent des alertes personnalis&eacute;es.</li>
+                <li><strong>Mod&eacute;rateurs :</strong> valident le contenu, consultent les scores de toxicit&eacute; et publient des annonces.</li>
+                <li><strong>Responsables :</strong> planifient les entr&eacute;es mises en avant et orchestrent les campagnes de notifications.</li>
+              </ul>
+            </article>
+            <article class="insight-card">
+              <h3>Moments cl&eacute;s</h3>
+              <ul>
+                <li>Onboarding guid&eacute; avec Expo et Firebase Auth.</li>
+                <li>Deep-links vers posts, fils priv&eacute;s et ressources externes.</li>
+                <li>Badges dynamiques sur onglets et ic&ocirc;ne pour stimuler l'engagement.</li>
+              </ul>
+            </article>
+            <article class="insight-card">
+              <h3>Indicateurs suivis</h3>
+              <ul>
+                <li>R&eacute;tention hebdomadaire par module (Forum, Articles, Messages).</li>
+                <li>Taux d'ouverture des notifications vs. envois.</li>
+                <li>Nombre de contenus filtr&eacute;s automatiquement par <code>check-toxicity</code>.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__inner">
+          <h2 class="section__title">Architecture connect&eacute;e</h2>
+          <p class="section__subtitle">
+            L'application mobile vit dans <code>app/foro</code> tandis que les microservices de notifications r&eacute;sident dans <code>api/api</code>, tous deux synchronis&eacute;s via Firebase.
+          </p>
+          <div class="callout">
+            <p><strong>Stack synth&eacute;tique :</strong> Expo 53 &middot; React Navigation &middot; Firebase Auth &amp; Firestore &middot; OneSignal &middot; Fonctions Node.js pour news et push.</p>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Couche</th>
+                <th>R&ocirc;le</th>
+                <th>R&eacute;pertoire</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>App mobile</td>
+                <td>Interface, navigation et lecture/&eacute;criture temps r&eacute;el</td>
+                <td><code>app/foro</code></td>
+              </tr>
+              <tr>
+                <td>API news</td>
+                <td>Diffuse contenus &eacute;ditoriaux et annonces</td>
+                <td><code>api/news.js</code></td>
+              </tr>
+              <tr>
+                <td>Push messaging</td>
+                <td>Orchestre les envois OneSignal &amp; FCM en validant les tokens</td>
+                <td><code>api/send-fcm-push.js</code></td>
+              </tr>
+              <tr>
+                <td>Mod&eacute;ration</td>
+                <td>Filtre le contenu sensible via <code>check-toxicity.js</code></td>
+                <td><code>api/check-toxicity.js</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__inner">
+          <h2 class="section__title">Feuille de route inspir&eacute;e</h2>
+          <p class="section__subtitle">
+            Recommandations pour prolonger la croissance sur l'engagement, la scalabilit&eacute; et l'observabilit&eacute;.
+          </p>
+          <div class="timeline">
+            <div class="timeline__item">
+              <h3>T4 &middot; Mesure de comportement</h3>
+              <p>Activer l'analytics &eacute;v&eacute;nementiel (Segment ou Firebase Analytics) pour suivre la r&eacute;tention par module.</p>
+            </div>
+            <div class="timeline__item">
+              <h3>T1 &middot; Mod&eacute;ration assist&eacute;e</h3>
+              <p>&Eacute;tendre <code>check-toxicity</code> avec recommandations pour les mod&eacute;rateurs et journalisation.</p>
+            </div>
+            <div class="timeline__item">
+              <h3>T2 &middot; Exp&eacute;rience web</h3>
+              <p>Lancer une version web responsive partageant la m&ecirc;me identit&eacute; et le m&ecirc;me backend.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--cta">
+        <div class="section__inner">
+          <h2 class="section__title">Pr&ecirc;t &agrave; &eacute;crire le prochain chapitre ?</h2>
+          <p class="section__subtitle">
+            Parcourez la documentation, lancez l'application en mode d&eacute;veloppement ou connectez vos automatisations &agrave; l'API existante.
+          </p>
+          <div class="cta-group">
+            <a class="cta cta--primary" href="../docs/guia-rapida.html">Guide d'installation</a>
+            <a class="cta cta--ghost" href="../docs/backend.html">Carte du backend</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+     <p>Foro &middot; Cr&eacute;e avec Expo, Firebase et une esth&eacute;tique futuriste.</p>
+    </footer>
+
+    <script src="../assets/js/main.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

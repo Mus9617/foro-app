@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API & Backend · Foro Redención Docs</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="icon" type="image/png" href=" ../../assets/images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="brand">
+          <img src="../../assets/images/logo.png" alt="Foro Redención" class="brand__logo" />
+          <strong>Foro Redenci&oacute;n</strong>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-links">
+            <a class="nav-link" data-nav-link href="../index.html">Accueil</a>
+            <a class="nav-link" data-nav-link href="introduction.html">Documentation</a>
+            <a class="nav-link" data-nav-link href="guide-rapide.html">Guide rapide</a>
+            <a class="nav-link" data-nav-link href="backend.html">API &amp; Backend</a>
+          </div>
+          <div class="nav-lang" role="group" aria-label="Choisir la langue">
+            <a class="lang-link" href="../../docs/backend.html" lang="es">
+              <img class="flag-icon" src="../../assets/images/flag-es.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">ES</span>
+            </a>
+            <a class="lang-link active" href="backend.html" aria-current="page" lang="fr">
+              <img class="flag-icon" src="../../assets/images/flag-fr.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">FR</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="docs-wrapper">
+      <aside class="docs-nav">
+        <h2>Contenu</h2>
+        <a href="#overview">Vue d'ensemble</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#securite">S&eacute;curit&eacute;</a>
+        <a href="#monitoring">Monitoring</a>
+        <a href="#deploy">D&eacute;ploiement</a>
+      </aside>
+
+      <section class="docs-content">
+        <article>
+          <h1 id="overview">API &amp; Backend</h1>
+          <p>
+            Le backend de Foro Redenci&oacute;n est compos&eacute; de fonctions serverless Node.js d&eacute;ploy&eacute;es sur Vercel. Chaque fichier dans <code>api/api</code> expose un handler <code>(req, res)</code> compatible.
+          </p>
+
+          <h2 id="endpoints">Endpoints disponibles</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>M&eacute;thode</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/api/news</code></td>
+                <td>GET</td>
+                <td>Fournit les contenus &eacute;ditoriaux consomm&eacute;s dans l'onglet Articles.</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-fcm-push</code></td>
+                <td>POST</td>
+                <td>Envoie des notifications FCM cibl&eacute;es et purge les tokens invalides.</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-thread-push</code></td>
+                <td>POST</td>
+                <td>Notifie les nouveaux messages dans un fil priv&eacute;.</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-push</code></td>
+                <td>POST</td>
+                <td>Canal g&eacute;n&eacute;rique pour d&eacute;clencher des notifications OneSignal avec m&eacute;tadonn&eacute;es.</td>
+              </tr>
+              <tr>
+                <td><code>/api/check-toxicity</code></td>
+                <td>POST</td>
+                <td>&Eacute;value la toxicit&eacute; d'un texte pour la mod&eacute;ration automatique.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Exemple : push cibl&eacute;</h3>
+          <pre><code>{
+  "toUids": ["uidDestinataire"],
+  "title": "Nouveau message",
+  "body": "Activit&eacute; dans ton fil",
+  "data": { "threadId": "abc123" }
+}</code></pre>
+          <p>
+            L'endpoint <code>send-fcm-push</code> v&eacute;rifie le token Bearer, nettoie les tokens invalides dans Firestore et renvoie un r&eacute;sum&eacute; d'envoi.
+          </p>
+
+          <h2 id="securite">S&eacute;curit&eacute; et authentification</h2>
+          <ul>
+            <li>Requiert <code>Authorization: Bearer &lt;ID_TOKEN&gt;</code> pour les endpoints push.</li>
+            <li>Utilise <code>FIREBASE_SERVICE_ACCOUNT</code> pour initialiser l'Admin SDK.</li>
+            <li>Normalise le payload <code>data</code> (conversion en JSON si besoin).</li>
+            <li>Nettoie automatiquement les tokens invalides via <code>FieldValue.arrayRemove</code>.</li>
+          </ul>
+
+          <h2 id="monitoring">Monitoring et m&eacute;triques</h2>
+          <p>Recommandations pour assurer la fiabilit&eacute; des fonctions :</p>
+          <ul>
+            <li><strong>Logs structur&eacute;s :</strong> utilisez <code>console.info</code>/<code>console.error</code> avec des IDs de requ&ecirc;tes.</li>
+            <li><strong>M&eacute;triques :</strong> envoyez des &eacute;v&eacute;nements vers GA4 ou Amplitude pour suivre les r&eacute;sultats d'envoi.</li>
+            <li><strong>Alertes :</strong> d&eacute;finissez des webhooks Vercel ou cron externes pour tester la disponibilit&eacute; des endpoints.</li>
+          </ul>
+          <p>Documentez les versions de d&eacute;pendances dans le repo <code>api</code> et ajoutez des tests unitaires (Jest/Vitest) pour les handlers critiques.</p>
+
+          <h2 id="deploy">Strat&eacute;gie de d&eacute;ploiement</h2>
+          <ol>
+            <li>Utilisez <code>vercel dev</code> pour tester avant de d&eacute;ployer.</li>
+            <li>Configurez <code>FIREBASE_SERVICE_ACCOUNT</code>, <code>ONESIGNAL_APP_ID</code>, <code>ONESIGNAL_REST_KEY</code> dans Vercel.</li>
+            <li>Surveillez le tableau de bord Vercel pour les erreurs &agrave; froid.</li>
+            <li>Activez CORS explicitement si l'API est expos&eacute;e &agrave; des tiers.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Foro Redenci&oacute;n · APIs connect&eacute;es &agrave; Firebase et OneSignal.</p>
+    </footer>
+
+    <script src="../../assets/js/main.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+

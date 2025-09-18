@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guide rapide · Foro Redención Docs</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="icon" type="image/png" href=" ../../assets/images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="brand">
+          <img src="../../assets/images/logo.png" alt="Foro Redención" class="brand__logo" />
+          <strong>Foro Redenci&oacute;n</strong>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-links">
+            <a class="nav-link" data-nav-link href="../index.html">Accueil</a>
+            <a class="nav-link" data-nav-link href="introduction.html">Documentation</a>
+            <a class="nav-link" data-nav-link href="guide-rapide.html">Guide rapide</a>
+            <a class="nav-link" data-nav-link href="backend.html">API &amp; Backend</a>
+          </div>
+          <div class="nav-lang" role="group" aria-label="Choisir la langue">
+            <a class="lang-link" href="../../docs/guia-rapida.html" lang="es">
+              <img class="flag-icon" src="../../assets/images/flag-es.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">ES</span>
+            </a>
+            <a class="lang-link active" href="guide-rapide.html" aria-current="page" lang="fr">
+              <img class="flag-icon" src="../../assets/images/flag-fr.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">FR</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="docs-wrapper">
+      <aside class="docs-nav">
+        <h2>Contenu</h2>
+        <a href="#prerequis">Pr&eacute;requis</a>
+        <a href="#setup">Configuration locale</a>
+        <a href="#variables">Variables &amp; cl&eacute;s</a>
+        <a href="#commandes">Commandes essentielles</a>
+        <a href="#tests">Tests</a>
+        <a href="#depannage">D&eacute;pannage</a>
+        <a href="#bonnespratiques">Bonnes pratiques</a>
+      </aside>
+
+      <section class="docs-content">
+        <article>
+          <h1 id="prerequis">Guide rapide de d&eacute;ploiement</h1>
+          <p>
+            Suivez ces &eacute;tapes pour lancer Foro Redenci&oacute;n en local et valider l'exp&eacute;rience compl&egrave;te (frontend + fonctions serverless).
+          </p>
+
+          <h2>Pr&eacute;requis</h2>
+          <ul>
+            <li>Node.js 18+ et npm &agrave; jour.</li>
+            <li>Expo CLI (<code>npm install -g expo</code>).</li>
+            <li>Projet Firebase configur&eacute; (Auth + Firestore + FCM).</li>
+            <li>Compte OneSignal avec l'ID d'application (<code>oneSignalAppId</code> dans <code>app.config.js</code>).</li>
+          </ul>
+
+          <h2 id="setup">Configuration locale</h2>
+          <ol>
+            <li>Ouvrez <code>app/foro</code> et ex&eacute;cutez <code>npm install</code>.</li>
+            <li>Copiez votre <code>google-services.json</code> dans <code>android/app</code>.</li>
+            <li>Mettez &agrave; jour <code>src/lib/firebase.js</code> avec les identifiants du projet.</li>
+            <li>Lancez <code>npx expo start</code> et scannez le QR avec Expo Go.</li>
+          </ol>
+
+          <div class="callout" id="variables">
+            <h3>Variables importantes</h3>
+            <ul>
+              <li><code>ANDROID_GOOGLE_SERVICES_JSON</code> : chemin alternatif pour les builds automatis&eacute;s.</li>
+              <li><code>EXPO_PUBLIC_FIREBASE_*</code> : variables publiques pour initialiser Firebase.</li>
+              <li><code>oneSignalAppId</code> : d&eacute;fini dans <code>app.config.js</code> (section <code>extra</code>).</li>
+            </ul>
+          </div>
+
+          <h2 id="commandes">Commandes essentielles</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Commande</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>npx expo start</code></td>
+                <td>D&eacute;marre l'application en mode d&eacute;veloppement (Android/iOS/Web).</td>
+              </tr>
+              <tr>
+                <td><code>npx expo run:android</code></td>
+                <td>G&eacute;n&egrave;re une build native Android.</td>
+              </tr>
+              <tr>
+                <td><code>node api/news.js</code></td>
+                <td>Teste l'endpoint news en local avec <code>vercel dev</code> ou <code>node</code>.</td>
+              </tr>
+              <tr>
+                <td><code>node api/send-fcm-push.js</code></td>
+                <td>Simule l'envoi de push (n&eacute;cessite <code>FIREBASE_SERVICE_ACCOUNT</code>).</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 id="tests">Tests et v&eacute;rification</h2>
+          <p>Avant toute publication :</p>
+          <ul>
+            <li>Lancez <code>npx expo start --web</code> pour valider les deep-links et l'auth sur navigateur.</li>
+            <li>Utilisez des appareils physiques ou &eacute;mulateurs pour tester les notifications push.</li>
+            <li>V&eacute;rifiez les r&egrave;gles Firestore avec le simulateur pour posts, articles et messages.</li>
+          </ul>
+
+          <h2 id="depannage">D&eacute;pannage rapide</h2>
+          <ul>
+            <li><strong>Notifications muettes :</strong> assurez-vous que le son est activ&eacute; dans OneSignal et que l'appareil n'est pas en mode silencieux.</li>
+            <li><strong>Erreur 401 :</strong> contr&ocirc;lez que le token Firebase ID est envoy&eacute; dans <code>Authorization: Bearer</code>.</li>
+            <li><strong>Build Android en &eacute;chec :</strong> v&eacute;rifiez la pr&eacute;sence de <code>android/app/google-services.json</code> et la correspondance du package.</li>
+          </ul>
+
+          <h2 id="bonnespratiques">Bonnes pratiques</h2>
+          <ul>
+            <li>Gardez Expo/React Native align&eacute;s sur la version 53.</li>
+            <li>Enregistrez les tokens FCM apr&egrave;s authentification via <code>registerFcmToken</code>.</li>
+            <li>Configurez des r&egrave;gles Firestore restreignant lecture/&eacute;criture aux membres.</li>
+            <li>D&eacute;sactivez les logs OneSignal avant la mise en production.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Foro Redenci&oacute;n · Guide rapide pour d&eacute;veloppeurs.</p>
+    </footer>
+
+    <script src="../../assets/js/main.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+

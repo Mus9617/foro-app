@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API & Backend · Foro Redenci&oacute;n Docs</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="icon" type="image/png" href="../assets/images/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="brand">
+          <img src="../assets/images/logo.png" alt="Foro Redención" class="brand__logo" />
+          <strong>Foro Redenci&oacute;n</strong>
+        </div>
+        <div class="nav-actions">
+          <div class="nav-links">
+            <a class="nav-link" data-nav-link href="../index.html">Inicio</a>
+            <a class="nav-link" data-nav-link href="introduccion.html">Documentaci&oacute;n</a>
+            <a class="nav-link" data-nav-link href="guia-rapida.html">Gu&iacute;a R&aacute;pida</a>
+            <a class="nav-link" data-nav-link href="backend.html">API &amp; Backend</a>
+          </div>
+          <div class="nav-lang" role="group" aria-label="Seleccionar idioma">
+            <a class="lang-link active" href="backend.html" aria-current="page" lang="es">
+              <img class="flag-icon" src="../assets/images/flag-es.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">ES</span>
+            </a>
+            <a class="lang-link" href="../fr/docs/backend.html" lang="fr">
+              <img class="flag-icon" src="../assets/images/flag-fr.svg" alt="" aria-hidden="true" />
+              <span class="lang-code">FR</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="docs-wrapper">
+      <aside class="docs-nav">
+        <h2>Contenido</h2>
+        <a href="#overview">Overview</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#monitorizacion">Monitorizaci&oacute;n</a>
+        <a href="#deploy">Deploy</a>
+      </aside>
+
+      <section class="docs-content">
+        <article>
+          <h1 id="overview">API & Backend</h1>
+          <p>
+            El backend de Foro se organiza como funciones serverless Node.js desplegadas en Vercel. Cada archivo dentro de <code>api/api</code> expone un handler <code>(req, res)</code> compatible con la plataforma.
+          </p>
+
+          <h2 id="endpoints">Endpoints disponibles</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Ruta</th>
+                <th>Método</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/api/news</code></td>
+                <td>GET</td>
+                <td>Entrega entradas editoriales con prioridad y fecha. Consumido por la pestaña "Entradas".</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-fcm-push</code></td>
+                <td>POST</td>
+                <td>Envía notificaciones FCM a usuarios específicos, limpiando tokens inv&aacute;lidos.</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-thread-push</code></td>
+                <td>POST</td>
+                <td>Coordina notificaciones de nuevos mensajes dentro de un hilo de MD.</td>
+              </tr>
+              <tr>
+                <td><code>/api/send-push</code></td>
+                <td>POST</td>
+                <td>Canal genérico para disparar notificaciones OneSignal con metadata custom.</td>
+              </tr>
+              <tr>
+                <td><code>/api/check-toxicity</code></td>
+                <td>POST</td>
+                <td>Evalúa texto y devuelve probabilidad de toxicidad para moderación automática.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Ejemplo: enviar push dirigido</h3>
+          <pre><code>{
+  "toUids": ["uidDestinatario"],
+  "title": "Nuevo mensaje",
+  "body": "Tienes actividad en tu hilo",
+  "data": { "threadId": "abc123" }
+}</code></pre>
+          <p>
+            El endpoint <code>send-fcm-push</code> verifica el token Bearer recibido en la cabecera <code>Authorization</code>, elimina tokens inv&aacute;lidos en Firestore y responde con el resumen de env&iacute;os.
+          </p>
+
+          <h2 id="seguridad">Seguridad y autenticación</h2>
+          <ul>
+            <li>Se requiere <code>Authorization: Bearer &lt;ID_TOKEN&gt;</code> para los endpoints de push; el token se valida contra Firebase Auth.</li>
+            <li>El servicio usa <code>FIREBASE_SERVICE_ACCOUNT</code> (JSON) para inicializar el Admin SDK.</li>
+            <li>Se normaliza el payload <code>data</code> convirtiendo valores no string a JSON antes de enviarlos.</li>
+            <li>Tokens inv&aacute;lidos se limpian automáticamente con <code>FieldValue.arrayRemove</code>.</li>
+          </ul>
+
+          <h2 id="monitorizacion">Monitorizaci&oacute;n y m&eacute;tricas</h2>
+          <p>
+            Para garantizar entregas fiables se recomienda instrumentar los servicios serverless con los siguientes componentes Opci&oacute;nales:
+          </p>
+          <ul>
+            <li><strong>Logs estructurados:</strong> usa <code>console.info</code> y <code>console.error</code> con IDs de solicitud para analizar en el panel de Vercel.</li>
+            <li><strong>m&eacute;tricas:</strong> envía eventos a Google Analytics 4 o Amplitude cuando un push es aceptado, rechazado o marca tokens inv&aacute;lidos.</li>
+            <li><strong>Alertas:</strong> configura webhooks de Vercel o cron jobs externos para validar que los endpoints respondan <code>200</code>.</li>
+          </ul>
+          <p>
+            Además, documenta versiones de dependencias en el repositorio <code>api</code> y crea pruebas unitarias ligeras para los handlers críticos (FCM, toxicidad) con <code>jest</code> o <code>vitest</code>.
+          </p>
+
+          <h2 id="deploy">Estrategia de despliegue</h2>
+          <p>
+            Recomendaciones para mantener el backend estable:
+          </p>
+          <ol>
+            <li>Usa <code>vercel dev</code> para probar endpoints localmente antes de desplegar.</li>
+            <li>Configura variables de entorno en Vercel: <code>FIREBASE_SERVICE_ACCOUNT</code>, <code>ONESIGNAL_APP_ID</code>, <code>ONESIGNAL_REST_KEY</code>.</li>
+            <li>Instrumenta logs con <code>console.error</code> y utiliza el panel de Vercel para monitorear errores en frío.</li>
+            <li>Activa CORS de forma explícita (ya se permite <code>*</code>) si planeas exponer la API a terceros.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Foro Redenci&oacute;n · APIs conectadas con Firebase y OneSignal.</p>
+    </footer>
+
+    <script src="../assets/js/main.js" defer></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
