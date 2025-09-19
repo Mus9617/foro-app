@@ -1,10 +1,10 @@
-﻿# Foro Redención · Landing & Docs
+﻿# Foro · Landing & Docs
 
 <p align="center">
   <img src="assets/images/logo.png" alt="Foro Redención" width="120" />
 </p>
 
-Sitio web estático que presenta la app móvil **Foro Redención**: landing principal, documentación profesional bilingüe (es/fr) y estilo futurista con reveal/parallax para acompañar el producto publicado en Google Play.
+Sitio web estático que presenta la app móvil **Foro**: landing principal, documentación profesional bilingüe (es/fr) y estilo futurista con reveal/parallax para acompañar el producto publicado en Google Play.
 
 ![Captura de la landing](assets/images/foro.png)
 
